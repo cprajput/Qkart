@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import Checkout from "./components/checkout/Checkout";
+import AppLayout from "./components/layouts/AppLayout";
+import Login from "./components/login/Login";
+import Products from "./components/products/Products";
+import Register from "./components/register/Register";
+import Thanks from "./components/thanks/Thanks";
 
-function App() {
+export const config = "http://localhost:8082/api/v1";
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/thanks" element={<Thanks />} />
+          <Route path="/" element={<Products />} />
+        </Route>
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
