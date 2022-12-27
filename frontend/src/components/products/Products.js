@@ -31,7 +31,7 @@ const Products = () => {
     };
     setIsLoading(true);
     try {
-      const response = await axios.get(`${config.endpoint}/cart`);
+      const response = await axios.get(`${config}/cart`);
 
       setCartItems(response.data);
       setIsLoading(false);
@@ -49,7 +49,7 @@ const Products = () => {
     setFetchProductsStatus("pending");
     setIsLoading(true);
     try {
-      const response = await axios.get(`${config.endpoint}/products`);
+      const response = await axios.get(`${config}/products`);
       setProducts(response.data);
       setFetchProductsStatus("fulfilled");
       setIsLoading(false);
@@ -69,7 +69,7 @@ const Products = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${config.endpoint}/products/search?value=${text}`
+        `${config}/products/search?value=${text}`
       );
       setProducts(response.data);
       setFetchProductsStatus("fulfilled");
@@ -108,7 +108,7 @@ const Products = () => {
 
   const addToCart = async (productId, qty) => {
     try {
-      const response = await axios.post(`${config.endpoint}/cart`, {
+      const response = await axios.post(`${config}/cart`, {
         productId,
         qty,
       });
@@ -171,24 +171,24 @@ const Products = () => {
 
   return (
     <Box>
+      <Box sx={{ p: 2 }}>
+        <TextField
+          sx={{ width: "100%" }}
+          size="small"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Search color="primary" />
+              </InputAdornment>
+            ),
+          }}
+          placeholder="search"
+          name="search"
+          onChange={(e) => debounceSearch(e, debounceTimer)}
+        />
+      </Box>
       <Grid container>
         <Grid item xs={12} md={isLoggedIn ? 9 : 12}>
-          <TextField
-            className="search-mobile"
-            size="small"
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Search color="primary" />
-                </InputAdornment>
-              ),
-            }}
-            placeholder="search"
-            name="search"
-            onChange={(e) => debounceSearch(e, debounceTimer)}
-          />
-
           <Grid container spacing={2}>
             <Grid item xs={12} className="product-grid">
               <Box className="hero">

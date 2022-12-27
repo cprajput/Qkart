@@ -74,7 +74,7 @@ const Checkout = () => {
   // Fetch the entire products list
   const getProducts = useCallback(async () => {
     try {
-      const response = await axios.get(`${config.endpoint}/products`);
+      const response = await axios.get(`${config}/products`);
 
       setProducts(response.data);
       return response.data;
@@ -98,7 +98,7 @@ const Checkout = () => {
     async (token) => {
       if (!token) return;
       try {
-        const response = await axios.get(`${config.endpoint}/cart`, {
+        const response = await axios.get(`${config}/cart`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -123,7 +123,7 @@ const Checkout = () => {
       if (!token) return;
 
       try {
-        const response = await axios.get(`${config.endpoint}/user/addresses`, {
+        const response = await axios.get(`${config}/user/addresses`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -147,7 +147,7 @@ const Checkout = () => {
   const addAddress = async (token, newAddress) => {
     try {
       const response = await axios.post(
-        `${config.endpoint}/user/addresses`,
+        `${config}/user/addresses`,
         {
           address: newAddress.value,
         },
@@ -182,7 +182,7 @@ const Checkout = () => {
   const deleteAddress = async (token, addressId) => {
     try {
       const response = await axios.delete(
-        `${config.endpoint}/user/addresses/${addressId}`,
+        `${config}/user/addresses/${addressId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -239,7 +239,7 @@ const Checkout = () => {
           (item) => item.address === addresses.selected
         )[0]._id;
         await axios.post(
-          `${config.endpoint}/cart/checkout`,
+          `${config}/cart/checkout`,
           {
             addressId,
           },
